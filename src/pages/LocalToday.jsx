@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ServiceApi from "../services/ServiceApi";
 import {Card, Col, Container, Row} from "react-bootstrap";
+import ServiceHistoryApi from "../services/ServiceHistoryApi";
 
 class LocalToday extends Component {
 
@@ -27,7 +28,11 @@ class LocalToday extends Component {
         global_new_deaths: 0,
         global_recovered: 0,
         total_pcr_testing_count: 0,
-        daily_pcr_testing_data: []
+        daily_pcr_testing_data: [],
+        total_antigen_testing_count: 0,
+        daily_antigen_testing_data: [],
+        hospital_data: [],
+        recoveries_count: 0
     }
 
     componentDidMount = async () => {
@@ -43,6 +48,16 @@ class LocalToday extends Component {
                     local_new_deaths: response.data.data.local_new_deaths,
                     local_recovered: response.data.data.local_recovered,
                     local_active_cases: response.data.data.local_active_cases,
+                });
+            }).catch(error => {
+                console.log(error.message);
+            });
+
+        await ServiceHistoryApi.getAPI()
+            .then(response => {
+                // console.log(response.data.data[0])
+                this.setState({
+                    recoveries_count: response.data.data[0].recoveries_count
                 });
             }).catch(error => {
                 console.log(error.message);
@@ -125,7 +140,7 @@ class LocalToday extends Component {
                                         <Card.Body>
                                             <Card.Title>Recovered</Card.Title>
                                             <Card.Subtitle
-                                                className="mb-2 text-muted">{this.state.local_recovered}</Card.Subtitle>
+                                                className="mb-2 text-muted">{this.state.recoveries_count}</Card.Subtitle>
                                         </Card.Body>
                                     </Card>
                                 </div>
