@@ -132,6 +132,9 @@ class LocalToday extends Component {
                             </Row>
                         </Col>
                     </Row>
+                    <Row className={'pt-3 text-center'}>
+                        <h6>Last updated at: {this.state.update_date_time}</h6>
+                    </Row>
                 </Container>
             </div>
         );
