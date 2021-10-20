@@ -13,4 +13,4 @@ description
 
 ## Deployment
 
-### Production Enviroment - _https://covid19-sl.netlify.app_
+### Production Environment - _https://covid19-sl.netlify.app_
